@@ -1,0 +1,77 @@
+---
+title: "Crosstalk"
+subtitle: "Serverless Interactive Dashboards using R"
+author: "Jakub Novotný (IX. Prague R Meetup)"
+format:
+  revealjs: 
+    theme: dark
+editor: visual
+---
+
+## What is Crosstalk
+
+![](images/paste-1B89B391.png)
+
+```{r echo = T, results = "hide"}
+
+library(crosstalk)
+
+# Shared Data
+shared_mtcars <- crosstalk::SharedData$new(mtcars)
+
+# Filters
+filter_checkbox("cyl", "Cylinders", shared_mtcars, ~cyl)
+filter_slider("hp", "Horsepower", shared_mtcars, ~hp)
+filter_select("am", "Automatic", shared_mtcars, ~am)
+
+```
+
+## Crosstalk Compatible Widgets
+
+-   **plotly**, ggplotly (charts)
+-   **reactable**, DT (tables)
+-   **leaflet** (maps)
+
+![](images/paste-9015E6D1.png)
+
+## When to Use Crosstalk
+
+-   when Shiny not possible/practical, but interactivity needed
+-   small/medium data sets
+-   no user triggered specialized computations (statistics, derived columns)
+
+## Other Ways to Achieve Interactivity
+
+-   Server needed
+    -   Shiny Server
+    -   RStudio Connect
+-   Own server not needed
+    -   shiny on local server
+
+    -   shinyapps.io
+
+    -   Quarto with OJS
+
+## Crosstalk Demo
+
+-   crime in the Czech Republic based on policie.cz API
+
+-   data contains:
+
+    -   location (lat, long) - partially anonymized
+    -   crime type (e.g. car accident, theft, burglary, fraud, drug-related crime etc.)
+    -   crime status ([unresolved]{.underline}, [reported but not crime]{.underline}, [suspect charged]{.underline} etc.)
+
+-   created in R flexdashboard package (RMarkdown for dashboards)
+
+## Wrap-up and Q&A
+
+![](images/paste-6CBB78D5.png)
+
+## Links
+
+[Crosstalk documentation](https://rstudio.github.io/crosstalk/) + other widget libraries documentation
+
+Example [url](https://kriminalita.policie.cz/api/v1/downloads/202206.csv.zip) to retrieve the data used in the example (courtesy of Jindra Lacko)
+
+[Repository](https://github.com/novotny1akub/rmeetup_prague_2022) containing this presentation and the example dashboard used

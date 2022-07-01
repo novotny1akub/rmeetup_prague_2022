@@ -1,0 +1,57 @@
+---
+title: "Crime in the Czech Republic from 2022-06-03 until 2022-06-05"
+output:
+  flexdashboard::flex_dashboard:
+    theme: 
+      version: 3
+      bootswatch: cerulean
+---
+
+```{r setup, include=FALSE}
+
+source(r"{.\B_widgets.R}")
+
+```
+
+    
+Column {.sidebar data-width=200 fig-width=200}
+-------------------------------------
+    
+```{r}
+
+filter_slider("lng", "Longitude", out0_dat, ~lng, round = 2)
+filter_slider("lat", "Latitude", out0_dat, ~lat, round = 2)
+filter_select("types_label", "Crime Type", out0_dat, ~types_label, allLevels = F)
+filter_select("state_label", "Crime Status", out0_dat, ~state_label, allLevels = F)
+filter_select("hour", "Hour", out0_dat, ~hour)
+
+```
+
+
+   
+Column {data-width=1000 fig-width=1000 .tabset}
+-------------------------------------
+
+### Map
+
+```{r}
+
+out3_map
+
+```
+
+### Table
+    
+```{r}
+out2_tbl
+```
+
+
+### Plot
+
+```{r}
+
+out4_plotly
+
+```
+
